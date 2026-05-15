@@ -1,0 +1,13 @@
+[project]
+name = "ops-runbook-automation-kit"
+version = "0.1.0"
+description = "Safe IT operations runbook validation, execution, and report rendering."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+runbook-kit = "runbook_kit.cli:main"
+
+[tool.setuptools]
+packages = ["runbook_kit"]
+

@@ -1,0 +1,19 @@
+{
+  "name": "Repository Health Check",
+  "owner": "IT Operations",
+  "severity": "medium",
+  "steps": [
+    {
+      "name": "README is present",
+      "type": "file_exists",
+      "target": "README.md"
+    },
+    {
+      "name": "README documents verification",
+      "type": "file_contains",
+      "target": "README.md",
+      "contains": "Verification"
+    }
+  ]
+}
+
