@@ -1,0 +1,25 @@
+{
+  "repository": "ops-runbook-automation-kit",
+  "title": "Truthful runbook exits",
+  "change": "Failed checks now exit 1; invalid input exits 2.",
+  "generated_at": "2026-09-26T16:10:56.605141+00:00",
+  "source": "Contribution working tree; synthetic inputs only",
+  "test_command": "python -m unittest discover",
+  "tests": 13,
+  "test_output": ".............\n----------------------------------------------------------------------\nRan 13 tests in 0.064s\n\nOK",
+  "example_command": "python -m runbook_kit run examples/local_reliability.json --pretty",
+  "example": [
+    {
+      "name": "README exists",
+      "type": "file_exists",
+      "passed": true,
+      "evidence": "Checked path: README.md"
+    },
+    {
+      "name": "README describes kit",
+      "type": "file_contains",
+      "passed": true,
+      "evidence": "Expected text: Ops Runbook Automation Kit"
+    }
+  ]
+}

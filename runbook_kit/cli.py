@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 from .checks import load_runbook, render_markdown_report, run_runbook, validate_runbook
@@ -18,31 +19,34 @@ def main() -> int:
             sub.add_argument("--pretty", action="store_true")
 
     args = parser.parse_args()
-    runbook = load_runbook(args.runbook)
+    try:
+        runbook = load_runbook(args.runbook)
+    except (OSError, UnicodeError, ValueError):
+        print("ERROR: Unable to read runbook as UTF-8 JSON.", file=sys.stderr)
+        return 2
 
+    errors = validate_runbook(runbook)
+    if errors:
+        for error in errors:
+            print(f"ERROR: {error}", file=sys.stderr)
+        return 2
     if args.command == "validate":
-        errors = validate_runbook(runbook)
-        if errors:
-            for error in errors:
-                print(f"ERROR: {error}")
-            return 1
         print("Runbook is valid.")
         return 0
 
-    results = run_runbook(runbook, base_dir=args.runbook.parent.parent)
+    try:
+        results = run_runbook(runbook, base_dir=args.runbook.parent.parent)
+    except (OSError, UnicodeError, ValueError):
+        print("ERROR: Unable to execute runbook; check targets and access permissions.", file=sys.stderr)
+        return 2
 
     if args.command == "run":
         indent = 2 if args.pretty else None
         print(json.dumps(results, indent=indent))
-        return 0
-
-    if args.command == "render":
+    else:
         print(render_markdown_report(runbook, results))
-        return 0
-
-    return 1
+    return 0 if all(result["passed"] for result in results) else 1
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

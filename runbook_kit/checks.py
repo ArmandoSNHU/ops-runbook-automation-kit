@@ -23,21 +23,45 @@ def load_runbook(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def validate_runbook(runbook: dict[str, Any]) -> list[str]:
+def validate_runbook(runbook: Any) -> list[str]:
+    """Return schema errors without echoing potentially sensitive input values."""
+    if not isinstance(runbook, dict):
+        return ["Runbook must be an object."]
     errors: list[str] = []
     for field in ("name", "owner", "severity", "steps"):
         if field not in runbook:
             errors.append(f"Missing required field: {field}")
-    if not isinstance(runbook.get("steps", []), list):
+        elif field != "steps" and not _nonempty_string(runbook[field]):
+            errors.append(f"Field `{field}` must be a non-empty string.")
+    steps = runbook.get("steps")
+    if not isinstance(steps, list):
         errors.append("Field `steps` must be a list.")
         return errors
-    for index, step in enumerate(runbook.get("steps", []), start=1):
+    if not steps:
+        errors.append("Field `steps` must contain at least one step.")
+    for index, step in enumerate(steps, start=1):
+        if not isinstance(step, dict):
+            errors.append(f"Step {index} must be an object.")
+            continue
         for field in ("name", "type", "target"):
             if field not in step:
                 errors.append(f"Step {index} is missing required field: {field}")
-        if step.get("type") not in SUPPORTED_STEP_TYPES:
-            errors.append(f"Step {index} has unsupported type: {step.get('type')}")
+            elif not _nonempty_string(step[field]):
+                errors.append(f"Step {index} field `{field}` must be a non-empty string.")
+        step_type = step.get("type")
+        if not isinstance(step_type, str) or step_type not in SUPPORTED_STEP_TYPES:
+            errors.append(f"Step {index} has unsupported type.")
+        if step_type == "file_contains" and not _nonempty_string(step.get("contains")):
+            errors.append(f"Step {index} field `contains` must be a non-empty string.")
+        if step_type == "http_status":
+            status = step.get("status", 200)
+            if type(status) is not int or not 100 <= status <= 599:
+                errors.append(f"Step {index} field `status` must be an integer from 100 to 599.")
     return errors
+
+
+def _nonempty_string(value: Any) -> bool:
+    return isinstance(value, str) and bool(value.strip())
 
 
 def run_runbook(runbook: dict[str, Any], base_dir: Path | None = None) -> list[dict[str, Any]]:
@@ -50,7 +74,7 @@ def run_runbook(runbook: dict[str, Any], base_dir: Path | None = None) -> list[d
 
 
 def render_markdown_report(runbook: dict[str, Any], results: list[dict[str, Any]]) -> str:
-    status = "PASS" if all(result["passed"] for result in results) else "REVIEW"
+    status = "PASS" if results and all(result["passed"] for result in results) else "REVIEW"
     lines = [
         f"# Runbook Report: {runbook['name']}",
         "",
@@ -78,7 +102,7 @@ def _run_step(step: dict[str, Any], base_dir: Path) -> StepResult:
         return StepResult(step["name"], step_type, target.exists(), f"Checked path: {target}")
     if step_type == "file_contains":
         target = _resolve(base_dir, step["target"])
-        expected = str(step.get("contains", ""))
+        expected = step["contains"]
         if not target.exists():
             return StepResult(step["name"], step_type, False, f"Missing path: {target}")
         content = target.read_text(encoding="utf-8", errors="replace")
