@@ -1,0 +1,14 @@
+[
+  {
+    "name": "README exists",
+    "type": "file_exists",
+    "passed": true,
+    "evidence": "Checked path: README.md"
+  },
+  {
+    "name": "README describes kit",
+    "type": "file_contains",
+    "passed": true,
+    "evidence": "Expected text: Ops Runbook Automation Kit"
+  }
+]

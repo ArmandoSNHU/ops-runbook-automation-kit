@@ -1,0 +1,270 @@
+EEEFFFFFFFE.FEEEEEEEEE.............
+======================================================================
+ERROR: test_all_steps_preflight_before_network (tests.test_boundaries.BoundaryTests.test_all_steps_preflight_before_network)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 72, in test_all_steps_preflight_before_network
+    with patch("runbook_kit.checks.build_opener") as build, self.assertRaises(ValueError):
+         ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1503, in __enter__
+    original, local = self.get_original()
+                      ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1473, in get_original
+    raise AttributeError(
+        "%s does not have the attribute %r" % (target, name)
+    )
+AttributeError: <module 'runbook_kit.checks' from 'D:\\TechOps-contributions\\ops-runbook-automation-kit\\runbook_kit\\checks.py'> does not have the attribute 'build_opener'
+
+======================================================================
+ERROR: test_allowlisted_request_uses_no_redirect_handler (tests.test_boundaries.BoundaryTests.test_allowlisted_request_uses_no_redirect_handler)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 28, in test_allowlisted_request_uses_no_redirect_handler
+    from runbook_kit.checks import _NoRedirect
+ImportError: cannot import name '_NoRedirect' from 'runbook_kit.checks' (D:\TechOps-contributions\ops-runbook-automation-kit\runbook_kit\checks.py)
+
+======================================================================
+ERROR: test_bounded_file_read_rejects_oversized_file (tests.test_boundaries.BoundaryTests.test_bounded_file_read_rejects_oversized_file)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 66, in test_bounded_file_read_rejects_oversized_file
+    run_runbook(book("file_contains", "fixture", contains="needle"), Path(tmp), max_file_bytes=5)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: run_runbook() got an unexpected keyword argument 'max_file_bytes'
+
+======================================================================
+ERROR: test_redirect_is_failed_without_following (tests.test_boundaries.BoundaryTests.test_redirect_is_failed_without_following)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 40, in test_redirect_is_failed_without_following
+    with patch("runbook_kit.checks.build_opener") as build:
+         ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1503, in __enter__
+    original, local = self.get_original()
+                      ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1473, in get_original
+    raise AttributeError(
+        "%s does not have the attribute %r" % (target, name)
+    )
+AttributeError: <module 'runbook_kit.checks' from 'D:\\TechOps-contributions\\ops-runbook-automation-kit\\runbook_kit\\checks.py'> does not have the attribute 'build_opener'
+
+======================================================================
+ERROR: test_unsafe_urls_rejected_before_open (tests.test_boundaries.BoundaryTests.test_unsafe_urls_rejected_before_open) (target='file:///etc/passwd')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 22, in test_unsafe_urls_rejected_before_open
+    with self.subTest(target=target), patch("runbook_kit.checks.build_opener") as opener:
+                                      ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1503, in __enter__
+    original, local = self.get_original()
+                      ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1473, in get_original
+    raise AttributeError(
+        "%s does not have the attribute %r" % (target, name)
+    )
+AttributeError: <module 'runbook_kit.checks' from 'D:\\TechOps-contributions\\ops-runbook-automation-kit\\runbook_kit\\checks.py'> does not have the attribute 'build_opener'
+
+======================================================================
+ERROR: test_unsafe_urls_rejected_before_open (tests.test_boundaries.BoundaryTests.test_unsafe_urls_rejected_before_open) (target='ftp://example.invalid/x')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 22, in test_unsafe_urls_rejected_before_open
+    with self.subTest(target=target), patch("runbook_kit.checks.build_opener") as opener:
+                                      ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1503, in __enter__
+    original, local = self.get_original()
+                      ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1473, in get_original
+    raise AttributeError(
+        "%s does not have the attribute %r" % (target, name)
+    )
+AttributeError: <module 'runbook_kit.checks' from 'D:\\TechOps-contributions\\ops-runbook-automation-kit\\runbook_kit\\checks.py'> does not have the attribute 'build_opener'
+
+======================================================================
+ERROR: test_unsafe_urls_rejected_before_open (tests.test_boundaries.BoundaryTests.test_unsafe_urls_rejected_before_open) (target='https://user:secret@example.invalid')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 22, in test_unsafe_urls_rejected_before_open
+    with self.subTest(target=target), patch("runbook_kit.checks.build_opener") as opener:
+                                      ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1503, in __enter__
+    original, local = self.get_original()
+                      ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1473, in get_original
+    raise AttributeError(
+        "%s does not have the attribute %r" % (target, name)
+    )
+AttributeError: <module 'runbook_kit.checks' from 'D:\\TechOps-contributions\\ops-runbook-automation-kit\\runbook_kit\\checks.py'> does not have the attribute 'build_opener'
+
+======================================================================
+ERROR: test_unsafe_urls_rejected_before_open (tests.test_boundaries.BoundaryTests.test_unsafe_urls_rejected_before_open) (target='https://other.invalid')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 22, in test_unsafe_urls_rejected_before_open
+    with self.subTest(target=target), patch("runbook_kit.checks.build_opener") as opener:
+                                      ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1503, in __enter__
+    original, local = self.get_original()
+                      ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1473, in get_original
+    raise AttributeError(
+        "%s does not have the attribute %r" % (target, name)
+    )
+AttributeError: <module 'runbook_kit.checks' from 'D:\\TechOps-contributions\\ops-runbook-automation-kit\\runbook_kit\\checks.py'> does not have the attribute 'build_opener'
+
+======================================================================
+ERROR: test_unsafe_urls_rejected_before_open (tests.test_boundaries.BoundaryTests.test_unsafe_urls_rejected_before_open) (target='https://example.invalid.evil.test')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 22, in test_unsafe_urls_rejected_before_open
+    with self.subTest(target=target), patch("runbook_kit.checks.build_opener") as opener:
+                                      ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1503, in __enter__
+    original, local = self.get_original()
+                      ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1473, in get_original
+    raise AttributeError(
+        "%s does not have the attribute %r" % (target, name)
+    )
+AttributeError: <module 'runbook_kit.checks' from 'D:\\TechOps-contributions\\ops-runbook-automation-kit\\runbook_kit\\checks.py'> does not have the attribute 'build_opener'
+
+======================================================================
+ERROR: test_unsafe_urls_rejected_before_open (tests.test_boundaries.BoundaryTests.test_unsafe_urls_rejected_before_open) (target='https://example.invalid\\@other.invalid')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 22, in test_unsafe_urls_rejected_before_open
+    with self.subTest(target=target), patch("runbook_kit.checks.build_opener") as opener:
+                                      ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1503, in __enter__
+    original, local = self.get_original()
+                      ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1473, in get_original
+    raise AttributeError(
+        "%s does not have the attribute %r" % (target, name)
+    )
+AttributeError: <module 'runbook_kit.checks' from 'D:\\TechOps-contributions\\ops-runbook-automation-kit\\runbook_kit\\checks.py'> does not have the attribute 'build_opener'
+
+======================================================================
+ERROR: test_unsafe_urls_rejected_before_open (tests.test_boundaries.BoundaryTests.test_unsafe_urls_rejected_before_open) (target='https://example.invalid/\npath')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 22, in test_unsafe_urls_rejected_before_open
+    with self.subTest(target=target), patch("runbook_kit.checks.build_opener") as opener:
+                                      ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1503, in __enter__
+    original, local = self.get_original()
+                      ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1473, in get_original
+    raise AttributeError(
+        "%s does not have the attribute %r" % (target, name)
+    )
+AttributeError: <module 'runbook_kit.checks' from 'D:\\TechOps-contributions\\ops-runbook-automation-kit\\runbook_kit\\checks.py'> does not have the attribute 'build_opener'
+
+======================================================================
+ERROR: test_unsafe_urls_rejected_before_open (tests.test_boundaries.BoundaryTests.test_unsafe_urls_rejected_before_open) (target='https://example.invalid:99999')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 22, in test_unsafe_urls_rejected_before_open
+    with self.subTest(target=target), patch("runbook_kit.checks.build_opener") as opener:
+                                      ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1503, in __enter__
+    original, local = self.get_original()
+                      ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1473, in get_original
+    raise AttributeError(
+        "%s does not have the attribute %r" % (target, name)
+    )
+AttributeError: <module 'runbook_kit.checks' from 'D:\\TechOps-contributions\\ops-runbook-automation-kit\\runbook_kit\\checks.py'> does not have the attribute 'build_opener'
+
+======================================================================
+ERROR: test_unsafe_urls_rejected_before_open (tests.test_boundaries.BoundaryTests.test_unsafe_urls_rejected_before_open) (target='https://example.invalid/#fragment')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 22, in test_unsafe_urls_rejected_before_open
+    with self.subTest(target=target), patch("runbook_kit.checks.build_opener") as opener:
+                                      ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1503, in __enter__
+    original, local = self.get_original()
+                      ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\sshuser\miniconda3\Lib\unittest\mock.py", line 1473, in get_original
+    raise AttributeError(
+        "%s does not have the attribute %r" % (target, name)
+    )
+AttributeError: <module 'runbook_kit.checks' from 'D:\\TechOps-contributions\\ops-runbook-automation-kit\\runbook_kit\\checks.py'> does not have the attribute 'build_opener'
+
+======================================================================
+FAIL: test_network_default_denied (tests.test_boundaries.BoundaryTests.test_network_default_denied)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 16, in test_network_default_denied
+    with patch("runbook_kit.checks.urlopen", create=True), self.assertRaises(ValueError):
+                                                           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_path_escape_and_special_paths_rejected (tests.test_boundaries.BoundaryTests.test_path_escape_and_special_paths_rejected) (target='../outside')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 49, in test_path_escape_and_special_paths_rejected
+    with self.subTest(target=target), self.assertRaises(ValueError):
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_path_escape_and_special_paths_rejected (tests.test_boundaries.BoundaryTests.test_path_escape_and_special_paths_rejected) (target='C:\\Users\\sshuser\\AppData\\Local\\Temp\\outside')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 49, in test_path_escape_and_special_paths_rejected
+    with self.subTest(target=target), self.assertRaises(ValueError):
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_path_escape_and_special_paths_rejected (tests.test_boundaries.BoundaryTests.test_path_escape_and_special_paths_rejected) (target='\\\\server\\share\\file')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 49, in test_path_escape_and_special_paths_rejected
+    with self.subTest(target=target), self.assertRaises(ValueError):
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_path_escape_and_special_paths_rejected (tests.test_boundaries.BoundaryTests.test_path_escape_and_special_paths_rejected) (target='file.txt:stream')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 49, in test_path_escape_and_special_paths_rejected
+    with self.subTest(target=target), self.assertRaises(ValueError):
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_path_escape_and_special_paths_rejected (tests.test_boundaries.BoundaryTests.test_path_escape_and_special_paths_rejected) (target='NUL')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 49, in test_path_escape_and_special_paths_rejected
+    with self.subTest(target=target), self.assertRaises(ValueError):
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_path_escape_and_special_paths_rejected (tests.test_boundaries.BoundaryTests.test_path_escape_and_special_paths_rejected) (target='dir/CON.txt')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 49, in test_path_escape_and_special_paths_rejected
+    with self.subTest(target=target), self.assertRaises(ValueError):
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_symlink_escape_rejected (tests.test_boundaries.BoundaryTests.test_symlink_escape_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\TechOps-contributions\ops-runbook-automation-kit\tests\test_boundaries.py", line 59, in test_symlink_escape_rejected
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.105s
+
+FAILED (failures=8, errors=13)
