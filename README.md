@@ -135,3 +135,46 @@ HTTP steps perform real requests; non-destructive does not mean offline or dry-r
 Only execute trusted runbooks. Reports may contain configured targets and expected
 text; sanitization applies to CLI input/execution errors, not general report redaction.
 See [contribution evidence](docs/CONTRIBUTION.md).
+
+## Target security policy
+
+Network access is denied by default. Operators grant exact trusted ASCII hostnames
+(or IPv4 addresses) using repeated `--allow-host` options. Grants come from the
+CLI/API, never fields in the runbook. Matching ignores hostname case; wildcards,
+subdomain suffix matching, Unicode names, and IPv6 literals are not supported.
+Only HTTP and HTTPS URLs are accepted. Embedded credentials, control characters,
+backslashes, fragments, and invalid ports are rejected. All redirects are blocked,
+including redirects to the same host. Environment proxies are disabled. HTTP
+response bodies are not read, and requests retain a five-second timeout.
+
+```powershell
+# Validation only: no HTTP request is sent.
+python -m runbook_kit validate examples\trusted-service.json --allow-host status.example.invalid
+# Choose a trusted file root independently of the runbook's location.
+python -m runbook_kit run examples\local_reliability.json --base-dir . --max-file-bytes 1048576
+```
+
+The first command illustrates policy for an operator-created runbook; that file is
+not shipped. File targets must be relative paths within the configured base directory
+(default: runbook file's grandparent). Absolute paths, UNC/device paths, drive paths,
+alternate data streams, Windows reserved device names, and resolved paths outside
+the root are rejected. Existing symlinks are resolved before confinement checks.
+All target policies are checked before any step executes.
+
+File containment reads are limited to 1 MiB by default. `--max-file-bytes` permits
+1 through 16 MiB. Oversized files fail execution with exit 2, even if matching text
+occurs in the first bytes. Only regular files can be read. Runbook JSON documents
+have a fixed 1 MiB limit. The Python API exposes the same policy:
+
+```python
+run_runbook(runbook, base_dir=trusted_root,
+            allowed_hosts=["status.example.invalid"], max_file_bytes=1048576)
+```
+
+The caller must trust the configured root and hosts. This is not an OS sandbox:
+concurrent changes to symlinks/files can race path checks; hard links and mounted
+filesystems can expose data inside the root. Do not execute against directories
+writable by an adversary. Host allowlisting does not pin DNS or restrict IP ranges
+or ports; a trusted host may resolve to private/loopback addresses. Use a narrowly
+reviewed allowlist and external egress controls where stronger isolation is needed.
+Validation checks policy and schema but does not prove connectivity or file contents.
